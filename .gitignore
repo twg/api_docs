@@ -2,3 +2,4 @@
 .DS_Store
 .rvmrc
 pkg
+Gemfile.lock

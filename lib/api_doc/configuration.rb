@@ -1,4 +1,4 @@
-module ApiDocs
+module ApiDoc
   class Configuration
 
     # Where to find the folder with the yaml docs
@@ -7,7 +7,7 @@ module ApiDocs
     # Configuration defaults
     def initialize
       @yaml_docs_folder = '/doc'
-      @api_url = 'http://localhost:3000'
+      @api_url          = 'http://localhost:3000'
     end
     
   end
