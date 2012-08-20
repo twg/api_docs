@@ -1,5 +1,4 @@
 # API docs
-
 A tool to help you generate documentation for you API
 
 

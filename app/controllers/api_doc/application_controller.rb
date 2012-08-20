@@ -1,4 +1,3 @@
-module ApiDoc
-  class ApplicationController < ActionController::Base
-  end
+class ApiDoc::ApplicationController < ActionController::Base
+  # ...
 end

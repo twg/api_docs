@@ -1,0 +1,1 @@
+ApiDoc.config.docs_path = Rails.root.join('../../doc/api')

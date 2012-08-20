@@ -1,2 +1,13 @@
-<h1>Docs#index</h1>
-<p>Find me in app/views/api_doc/docs/index.html.erb</p>
+<ul class='nav nav-tabs' id='controller_tabs'>
+  <% @api_controllers.each_with_index do |(controller, actions), index| %>
+    <li class='<%= index == 0 ? 'active' : '' %>'><a href='#<%= controller %>'></li>
+  <% end %>
+</ul>
+
+<div class='tab-content'>
+  <% @api_controllers.each_with_index do |(controller, actions), index| %>
+    <div class='tab-pane' id='<%= controller %>'>
+      <%= debug actions %>
+    </div>
+  <% end %>
+</div>
