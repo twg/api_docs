@@ -1,5 +1,6 @@
 index:
   HASHTOKEN_A:
+    comment: When you need to get a list of things
     method: GET
     path: /things
     params:
@@ -10,7 +11,7 @@ index:
         name: One Thing
       - id: 2
         name: Two Thing
-  HASHTOKEN_A:
+  HASHTOKEN_B:
     method: GET
     path: /things
     params:

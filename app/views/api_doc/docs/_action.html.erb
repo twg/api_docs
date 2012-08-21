@@ -1,0 +1,34 @@
+<h1>
+  <span class='label label-info'><%= action['method'] %></span>
+  <%= action['path']%>
+</h1>
+
+<div class='alert alert-info'>
+  <%= action['comment']%>
+</div>
+
+<table class='table table-bordered table-condensed table-striped'>
+  <tr>
+    <th>Request Parameters</th>
+    <td>
+      <% if action['params'].is_a?(Hash) %>
+        <table class='table table-bordered table-condensed table-striped table-autowidth'>
+          <% action['params'].each do |key, value| %>
+            <tr>
+              <th><%= key %></th>
+              <td><%= value %></td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th>Response Status</th>
+    <td><%= action['status'] %></td>
+  </tr>
+  <tr>
+    <th>Response Body</th>
+    <td><pre><%= action['body'].to_json %></pre></td>
+  </tr>
+</table>

@@ -1,13 +1,32 @@
-<ul class='nav nav-tabs' id='controller_tabs'>
-  <% @api_controllers.each_with_index do |(controller, actions), index| %>
-    <li class='<%= index == 0 ? 'active' : '' %>'><a href='#<%= controller %>'></li>
-  <% end %>
-</ul>
-
-<div class='tab-content'>
-  <% @api_controllers.each_with_index do |(controller, actions), index| %>
-    <div class='tab-pane' id='<%= controller %>'>
-      <%= debug actions %>
+<div class='row'>
+  <div class='span3'>
+    <ul class='nav nav-list' id='api-doc-nav'>
+      <% @api_controllers.each_with_index do |(controller, actions), ci| %>
+        <li class='nav-header'>
+          <%= api_controller_label(controller) %>
+        </li>
+        <% actions.each_with_index do |(action, data), ai| %>
+          <li class='<%= ci == 0 && ai == 0 ? 'active' : '' %>'>
+            <% tab_id = "#{api_controller_id(controller)}_#{action}" %>
+            <%= link_to action, "##{tab_id}", :data => {:toggle => 'tab'} %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+  
+  <div class="span9">
+    <div class='tab-content'>
+      <% @api_controllers.each_with_index do |(controller, actions), ci| %>
+        <% actions.each_with_index do |(action, data), ai| %>
+          <% tab_id = "#{api_controller_id(controller)}_#{action}" %>
+          <div class='tab-pane <%= ci == 0 && ai == 0 ? 'active' : '' %>' id='<%= tab_id %>'>
+            <% data.each do |key, data| %>
+              <%= render :partial => 'action', :object => data %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>
