@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jack Neto", "The Working Group Inc."]
-  s.date = "2012-08-21"
+  s.date = "2012-08-22"
   s.description = ""
   s.email = "jack@twg.ca"
   s.extra_rdoc_files = [
@@ -22,21 +22,14 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
-    "app/assets/javascripts/api_doc/api_docs.js.coffee",
+    "api_docs.gemspec",
     "app/assets/javascripts/api_doc/application.js",
-    "app/assets/javascripts/api_doc/docs.js",
-    "app/assets/javascripts/api_doc/prettify.js",
     "app/assets/stylesheets/api_doc/application.css",
-    "app/assets/stylesheets/api_doc/docs.css",
-    "app/assets/stylesheets/api_doc/prettify.css",
+    "app/assets/stylesheets/api_doc/bootstrap_and_overrides.css.less",
     "app/controllers/api_doc/application_controller.rb",
     "app/controllers/api_doc/docs_controller.rb",
-    "app/views/api_doc/docs/_api_docs.html.haml",
-    "app/views/api_doc/docs/_curl.html.haml",
-    "app/views/api_doc/docs/_form.html.haml",
-    "app/views/api_doc/docs/_panel.html.haml",
-    "app/views/api_doc/docs/_params.html.haml",
-    "app/views/api_doc/docs/_response.html.haml",
+    "app/helpers/api_doc/application_helper.rb",
+    "app/views/api_doc/docs/_action.html.erb",
     "app/views/api_doc/docs/index.html.erb",
     "app/views/layouts/api_doc/application.html.erb",
     "config/routes.rb",
@@ -94,15 +87,18 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rails>, [">= 3.1.0"])
       s.add_runtime_dependency(%q<twitter-bootstrap-rails>, [">= 0"])
+      s.add_runtime_dependency(%q<jquery-rails>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
     else
       s.add_dependency(%q<rails>, [">= 3.1.0"])
       s.add_dependency(%q<twitter-bootstrap-rails>, [">= 0"])
+      s.add_dependency(%q<jquery-rails>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
     end
   else
     s.add_dependency(%q<rails>, [">= 3.1.0"])
     s.add_dependency(%q<twitter-bootstrap-rails>, [">= 0"])
+    s.add_dependency(%q<jquery-rails>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
   end
 end
