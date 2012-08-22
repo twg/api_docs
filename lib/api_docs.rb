@@ -1,7 +1,7 @@
-require 'api_doc/engine'
-require 'api_doc/configuration'
+require 'api_docs/engine'
+require 'api_docs/configuration'
 
-module ApiDoc
+module ApiDocs
 
   class << self
     

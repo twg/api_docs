@@ -9,6 +9,6 @@ Rails.backtrace_cleaner.remove_silencers!
 class ActionController::TestCase
   setup :use_engine_routes
   def use_engine_routes
-    @routes = ApiDoc::Engine.routes
+    @routes = ApiDocs::Engine.routes
   end
 end

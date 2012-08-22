@@ -1,4 +1,4 @@
-module ApiDoc
+module ApiDocs
   class Configuration
     
     # Where to find the folder with documentation files

@@ -1,3 +1,3 @@
-ApiDoc::Engine.routes.draw do
+ApiDocs::Engine.routes.draw do
   root :to => 'docs#index'
 end

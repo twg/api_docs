@@ -1,13 +1,13 @@
 require File.expand_path('test_helper', File.dirname(__FILE__))
 
-class ApiDocTest < ActiveSupport::TestCase
+class ApiDocsTest < ActiveSupport::TestCase
   
   def test_truth
-    assert_kind_of Module, ApiDoc
+    assert_kind_of Module, ApiDocs
   end
   
   def test_configuration_defaults
-    assert config = ApiDoc.configuration
+    assert config = ApiDocs.configuration
     assert config.docs_path
   end
 end

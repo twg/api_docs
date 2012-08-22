@@ -1,9 +1,9 @@
 require 'test_helper'
 
-class ApiDoc::DocsControllerTest < ActionController::TestCase
+class ApiDocs::DocsControllerTest < ActionController::TestCase
   
   def setup
-    ApiDoc.config.docs_path = Rails.root.join('../../doc/api')
+    ApiDocs.config.docs_path = Rails.root.join('../../doc/api')
   end
   
   def test_get_index

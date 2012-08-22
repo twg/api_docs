@@ -9,7 +9,7 @@ require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
 Bundler.require
-require "api_doc"
+require "api_docs"
 
 module Dummy
   class Application < Rails::Application

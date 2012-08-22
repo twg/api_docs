@@ -1,3 +1,0 @@
-class ApiDoc::ApplicationController < ActionController::Base
-  # ...
-end
