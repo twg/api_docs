@@ -1,6 +1,6 @@
 index:
   HASHTOKEN_A:
-    comment: When you need to get a list of things
+    description: When you need to get a list of things
     method: GET
     path: /things
     params:

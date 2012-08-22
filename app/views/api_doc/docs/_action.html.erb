@@ -1,18 +1,29 @@
-<h1>
-  <span class='label label-info'><%= action['method'] %></span>
-  <%= action['path']%>
-</h1>
-
-<div class='alert alert-info'>
-  <%= action['comment']%>
-</div>
-
-<table class='table table-bordered table-condensed table-striped'>
+<table class='table table-bordered table-condensed' id='api-doc-table'>
+  
+  <tr class='info'><th>Request</th><td></td></tr>
+  
+  <% if action['description'].present? %>
+    <tr>
+      <th>Description</th>
+      <td><%= action['description']%></td>
+    </tr>
+  <% end %>
+  
   <tr>
-    <th>Request Parameters</th>
-    <td>
-      <% if action['params'].is_a?(Hash) %>
-        <table class='table table-bordered table-condensed table-striped table-autowidth'>
+    <th>Method</th>
+    <td><span class='label'><%= action['method']%></span></td>
+  </tr>
+  
+  <tr>
+    <th>Path</th>
+    <td><%= action['path']%></td>
+  </tr>
+  
+  <% if action['params'].is_a?(Hash) %>
+    <tr>
+      <th>Parameters</th>
+      <td>
+        <table>
           <% action['params'].each do |key, value| %>
             <tr>
               <th><%= key %></th>
@@ -20,15 +31,24 @@
             </tr>
           <% end %>
         </table>
-      <% end %>
+      </td>
+    </tr>
+  <% end %>
+  
+  <tr class='info'><th>Response</th><td></td></tr>
+  
+  <tr>
+    <th>Status</th>
+    <td>
+      <span class='label <%= action['status'].to_s[0] == '4' ? 'label-important' : 'label-success' %>'>
+        <%= action['status'] %>
+      </span>
     </td>
   </tr>
+  
   <tr>
-    <th>Response Status</th>
-    <td><%= action['status'] %></td>
+    <th>Body</th>
+    <td><pre><%= JSON.pretty_generate(action['body']) %></pre></td>
   </tr>
-  <tr>
-    <th>Response Body</th>
-    <td><pre><%= action['body'].to_json %></pre></td>
-  </tr>
+  
 </table>
