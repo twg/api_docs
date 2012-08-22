@@ -1,0 +1,16 @@
+<table>
+  <% request_params.each do |key, value| %>
+    <tr>
+      <th><%= key %></th>
+      <td>
+        <%= 
+          if value.is_a?(Hash)
+            render :partial => 'request_params', :object => value
+          else
+            value
+          end
+        %>
+      </td>
+    </tr>
+  <% end %>
+</table>

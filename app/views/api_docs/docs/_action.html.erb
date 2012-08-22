@@ -23,14 +23,7 @@
     <tr>
       <th>Parameters</th>
       <td>
-        <table>
-          <% action['params'].each do |key, value| %>
-            <tr>
-              <th><%= key %></th>
-              <td><%= value %></td>
-            </tr>
-          <% end %>
-        </table>
+        <%= render :partial => 'request_params', :object => action['params'] %>
       </td>
     </tr>
   <% end %>
