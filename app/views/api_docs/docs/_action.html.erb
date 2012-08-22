@@ -1,6 +1,12 @@
 <table class='table table-bordered table-condensed' id='api-doc-table'>
   
-  <tr class='info'><th>Request</th><td></td></tr>
+  <tr class='info'>
+    <th>Request</th>
+    <td>
+      <span class='label label-info'><%= action['method']%></span>
+      <code><%= action['path']%></code>
+    </td>
+  </tr>
   
   <% if action['description'].present? %>
     <tr>
@@ -8,16 +14,6 @@
       <td><%= action['description']%></td>
     </tr>
   <% end %>
-  
-  <tr>
-    <th>Method</th>
-    <td><span class='label'><%= action['method']%></span></td>
-  </tr>
-  
-  <tr>
-    <th>Path</th>
-    <td><%= action['path']%></td>
-  </tr>
   
   <% if action['params'].is_a?(Hash) %>
     <tr>
@@ -28,10 +24,8 @@
     </tr>
   <% end %>
   
-  <tr class='info'><th>Response</th><td></td></tr>
-  
-  <tr>
-    <th>Status</th>
+  <tr class='info'>
+    <th>Response</th>
     <td>
       <span class='label <%= action['status'].to_s[0] == '4' ? 'label-important' : 'label-success' %>'>
         <%= action['status'] %>

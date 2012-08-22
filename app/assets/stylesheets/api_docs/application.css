@@ -38,11 +38,13 @@ table#api-doc-table  td {
  width: 100%;
 }
 table#api-doc-table  tr.info th {
-  color: #575F63;
   background-color: #D9EDF7 !important;
 }
 table#api-doc-table  tr.info td {
   background-color: #F0F8FC !important;
+}
+table#api-doc-table  tr.info td code {
+  color: #3A87AD !important;
 }
 table#api-doc-table  td pre {
   margin-bottom: 0px;
