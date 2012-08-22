@@ -25,11 +25,10 @@ Gem::Specification.new do |s|
     "api_docs.gemspec",
     "app/assets/javascripts/api_docs/application.js",
     "app/assets/stylesheets/api_docs/application.css",
-    "app/assets/stylesheets/api_docs/bootstrap_and_overrides.css.less",
     "app/controllers/api_docs/application_controller.rb",
     "app/controllers/api_docs/docs_controller.rb",
-    "app/helpers/api_doc/application_helper.rb",
     "app/views/api_docs/docs/_action.html.erb",
+    "app/views/api_docs/docs/_request_params.html.erb",
     "app/views/api_docs/docs/index.html.erb",
     "app/views/layouts/api_docs/application.html.erb",
     "config/routes.rb",
@@ -42,8 +41,12 @@ Gem::Specification.new do |s|
     "test/api_docs_test.rb",
     "test/dummy/README.rdoc",
     "test/dummy/Rakefile",
+    "test/dummy/app/assets/images/glyphicons-halflings-white.png",
+    "test/dummy/app/assets/images/glyphicons-halflings.png",
     "test/dummy/app/assets/javascripts/application.js",
+    "test/dummy/app/assets/javascripts/bootstrap.min.js",
     "test/dummy/app/assets/stylesheets/application.css",
+    "test/dummy/app/assets/stylesheets/bootstrap.min.css",
     "test/dummy/app/controllers/application_controller.rb",
     "test/dummy/app/helpers/application_helper.rb",
     "test/dummy/app/mailers/.gitkeep",
@@ -86,18 +89,15 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rails>, [">= 3.1.0"])
-      s.add_runtime_dependency(%q<twitter-bootstrap-rails>, [">= 0"])
       s.add_runtime_dependency(%q<jquery-rails>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
     else
       s.add_dependency(%q<rails>, [">= 3.1.0"])
-      s.add_dependency(%q<twitter-bootstrap-rails>, [">= 0"])
       s.add_dependency(%q<jquery-rails>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
     end
   else
     s.add_dependency(%q<rails>, [">= 3.1.0"])
-    s.add_dependency(%q<twitter-bootstrap-rails>, [">= 0"])
     s.add_dependency(%q<jquery-rails>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
   end
