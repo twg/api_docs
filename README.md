@@ -1,4 +1,4 @@
-# api_docs_
+# api_docs
 A tool to help you generate documentation for you API using integration tests in Rails 3.
 
 
@@ -11,14 +11,9 @@ To access generated docs mount it to a path in your `routes.rb` like this:
 
     mount ApiDocs::Engine => '/api-docs'
     
-You may also want to add js/css to your application asset pipeline manifest:
-in `application.js`
-
-    //= require api_docs
-    
-in `application.css`
-    
-    *= require api_docs
+You may also want to add js/css to your asset pipeline manifests:
+  
+    require api_docs
     
 Documents view is made to work with [Twitter Bootstrap](http://twitter.github.com/bootstrap) css and js libraries.
 
@@ -37,7 +32,7 @@ def test_get_user
 end
 
 def test_get_user_failure
-  api_call(:get, '/users/:id, :id => 'invalid') do |doc|'
+  api_call(:get, '/users/:id', :id => 'invalid') do |doc|'
     doc.description = 'When bad user id is passed'
     assert_response :not_found
     assert_equal ({
