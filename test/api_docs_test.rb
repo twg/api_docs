@@ -9,5 +9,6 @@ class ApiDocsTest < ActiveSupport::TestCase
   def test_configuration_defaults
     assert config = ApiDocs.configuration
     assert config.docs_path
+    assert_equal 'ApplicationController', config.base_controller
   end
 end

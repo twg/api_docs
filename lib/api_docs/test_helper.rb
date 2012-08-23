@@ -11,7 +11,7 @@ module ApiDocs::TestHelper
     data_params = params.dup.stringify_keys
     
     params.each do |k, v|
-      params.delete(k) if path.gsub!(":#{k}", v)
+      params.delete(k) if path.gsub!(":#{k}", v.to_s)
     end
     send(method, path, params)
     doc = OpenStruct.new
