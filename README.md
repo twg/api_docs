@@ -32,7 +32,7 @@ def test_get_user
 end
 
 def test_get_user_failure
-  api_call(:get, '/users/:id', :id => 'invalid') do |doc|'
+  api_call(:get, '/users/:id', :id => 'invalid') do |doc|
     doc.description = 'When bad user id is passed'
     assert_response :not_found
     assert_equal ({
