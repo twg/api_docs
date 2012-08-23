@@ -1,5 +1,3 @@
-require_dependency "api_docs/application_controller"
-
 class ApiDocs::DocsController < ApplicationController
   def index
     @api_controllers = { }

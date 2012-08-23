@@ -1,18 +1,15 @@
 # API docs
-A tool to help you generate documentation for you API
+A tool to help you generate documentation for you API using integration tests in Rails 3.
 
 
 ## Installation
+Add gem definition to your Gemfile and `bundle install`:
+    
+    gem 'api_docs'
+    
+To access generated docs mount it to a path in your `routes.rb` like this:
 
-Add gem definition to your Gemfile:
-    
-``` ruby
-gem 'api_docs'
-```
-    
-Bundle it:
-    
-    bundle install
+    mount ApiDocs::Engine => '/api-docs'
 
 Add [Twitter bootstrap](http://twitter.github.com/bootstrap) and [Google code pretifyer](http://google-code-prettify.googlecode.com/svn/trunk/README.html) to you CSS manifest file
 
