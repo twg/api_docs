@@ -30,14 +30,14 @@ Gem::Specification.new do |s|
     "app/views/api_docs/docs/_request_params.html.erb",
     "app/views/api_docs/docs/index.html.erb",
     "config/routes.rb",
-    "doc/api/module:controller_a.yml",
-    "doc/api/module:controller_b.yml",
+    "doc/api/application.yml",
     "lib/api_docs.rb",
     "lib/api_docs/configuration.rb",
     "lib/api_docs/engine.rb",
     "lib/api_docs/test_helper.rb",
     "script/rails",
     "test/api_docs_test.rb",
+    "test/docs_controller_test.rb",
     "test/dummy/README.rdoc",
     "test/dummy/Rakefile",
     "test/dummy/app/assets/images/glyphicons-halflings-white.png",
@@ -74,8 +74,8 @@ Gem::Specification.new do |s|
     "test/dummy/public/500.html",
     "test/dummy/public/favicon.ico",
     "test/dummy/script/rails",
-    "test/functional/api_docs/docs_controller_test.rb",
-    "test/test_helper.rb"
+    "test/test_helper.rb",
+    "test/test_helper_test.rb"
   ]
   s.homepage = "http://github.com/twg/api_docs"
   s.licenses = ["MIT"]
