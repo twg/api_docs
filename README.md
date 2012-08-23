@@ -4,16 +4,22 @@ A tool to help you generate documentation for you API using integration tests in
 
 ## Installation
 Add gem definition to your Gemfile and `bundle install`:
-    
-    gem 'api_docs'
+
+```    
+gem 'api_docs'
+```
     
 To access generated docs mount it to a path in your `routes.rb` like this:
 
-    mount ApiDocs::Engine => '/api-docs'
+``` ruby
+mount ApiDocs::Engine => '/api-docs'
+```
     
 You may also want to add js/css to your asset pipeline manifests:
-  
-    require api_docs
+
+```  
+require api_docs
+```
     
 Documents view is made to work with [Twitter Bootstrap](http://twitter.github.com/bootstrap) css and js libraries.
 
@@ -66,6 +72,9 @@ show:
       message: User not found
 ```
 
+## Usage
+Just navigate to the path you mounted *api_docs* to. Perhaps `http://yourapp/api-docs`.
+
 ## Configuration
 
 You can change the default configuration of this gem by adding the following code to your initializers folder:
@@ -79,4 +88,3 @@ end
 ---
 
 Copyright 2012 Oleg Khabarov, Jack Neto, [The Working Group, Inc](http://twg.ca)
-
