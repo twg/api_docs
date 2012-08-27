@@ -59,7 +59,7 @@ module ApiDocs::TestHelper
     params.each do |key, value|
       result[key.to_s] = case value
       when Hash
-        api_deep_clean_params(value)
+        api_deep_clean_params(value, as_response)
       when Rack::Test::UploadedFile
         'BINARY'
       else
