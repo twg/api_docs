@@ -54,23 +54,27 @@ module ApiDocs::TestHelper
   end
   
   # Cleans up params. Removes things like File object handlers
+  # Sets up ignored values so we don't generate new keys for same data
   def api_deep_clean_params(params, as_response = false)
-    result = { }
-    params.each do |key, value|
-      result[key.to_s] = case value
-      when Hash
-        api_deep_clean_params(value, as_response)
+    case params
+    when Hash
+      params.each_with_object({}) do |(key, value), res|
+        if as_response && ApiDocs.config.ignored_attributes.include?(key.to_s)
+          res[key.to_s] = 'IGNORED'
+        else
+          res[key.to_s] = api_deep_clean_params(value, as_response)
+        end
+      end
+    when Array
+      params.collect{|value| api_deep_clean_params(value, as_response)}
+    else
+      case params 
       when Rack::Test::UploadedFile
         'BINARY'
       else
-        if as_response && ApiDocs.config.ignored_attributes.include?(key.to_s)
-          'IGNORED'
-        else
-          value.to_s
-        end
+        params.to_s
       end
     end
-    result
   end
 end
 

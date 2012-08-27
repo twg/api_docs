@@ -1,6 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
+  def index
+    render :text => [{
+      :id         => 1,
+      :name       => 'Test User',
+      :created_at => 1.day.ago
+    }].to_json
+  end
+  
   def show
     status = :ok
     
@@ -11,7 +19,7 @@ class ApplicationController < ActionController::Base
       status = :not_found
     end
     
-    response.merge!(:random => rand) if params[:random]
+    response.merge!(:created_at => rand.days.ago) if params[:random]
     render :text => response.to_json, :status => status
   end
 end

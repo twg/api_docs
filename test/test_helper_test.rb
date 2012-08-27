@@ -9,6 +9,34 @@ class TestHelperTest < ActionDispatch::IntegrationTest
     end
   end
   
+  def test_api_deep_clean_params
+    assert_equal ({'a' => 'b'}),
+      api_deep_clean_params({:a => 'b'})
+    
+    assert_equal ({'a' => {'b' => 'c'}}),
+      api_deep_clean_params({:a => {:b => 'c'}})
+    
+    assert_equal ([{'a' => 'b'}, {'c' => 'd'}]),
+      api_deep_clean_params([{:a => 'b'}, {:c => 'd'}])
+      
+    assert_equal ({'a'=>[{'b'=>'c'}]}),
+      api_deep_clean_params({:a => [{:b => 'c'}]})
+  end
+  
+  def test_api_deep_clean_params_with_file_handler
+    assert_equal ({'a' => 'BINARY'}),
+      api_deep_clean_params({:a => Rack::Test::UploadedFile.new(__FILE__)})
+  end
+  
+  def test_api_deep_clean_params_with_ignored_params
+    ApiDocs.config.ignored_attributes = ['c']
+    assert_equal ({'c' => 'IGNORED'}),
+      api_deep_clean_params({:c => 'c'}, :as_response)
+    
+    assert_equal ({'a' => [{'b' => 'c', 'c' => 'IGNORED'}]}),
+      api_deep_clean_params({:a => [:b => 'c', :c => 'd']}, :as_response)
+  end
+  
   def test_api_call
     api_call(:get, '/users/:id', :id => 12345) do |doc|
       assert_response :success
