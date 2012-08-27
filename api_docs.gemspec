@@ -65,7 +65,6 @@ Gem::Specification.new do |s|
     "test/dummy/config/initializers/wrap_parameters.rb",
     "test/dummy/config/locales/en.yml",
     "test/dummy/config/routes.rb",
-    "test/dummy/doc/api/application.yml",
     "test/dummy/lib/assets/.gitkeep",
     "test/dummy/log/.gitkeep",
     "test/dummy/public/404.html",
