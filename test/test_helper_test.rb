@@ -3,6 +3,7 @@ require File.expand_path('test_helper', File.dirname(__FILE__))
 class TestHelperTest < ActionDispatch::IntegrationTest
   
   def setup
+    ApiDocs.config.ignored_attributes = %(created_at updated_at)
     Dir.glob(ApiDocs.config.docs_path.join('*.yml')).each do |file_path|
       FileUtils.rm(file_path)
     end
@@ -47,6 +48,29 @@ class TestHelperTest < ActionDispatch::IntegrationTest
     assert_equal ({'id' => 'invalid'}),             object['params']
     assert_equal 404,                               object['status']
     assert_equal ({'message' => 'User not found'}), object['body']
+  end
+  
+  def test_api_call_with_ignored_attribute
+    api_call(:get, '/users/:id', :id => 12345) do
+      assert_response :success
+    end
+    output = YAML.load_file(ApiDocs.config.docs_path.join('application.yml'))
+    assert_equal 1, output['show'].keys.size
+    
+    ApiDocs.config.ignored_attributes << 'random'
+    api_call(:get, '/users/:id', :id => 12345, :random => 1) do
+      assert_response :success
+    end
+    output = YAML.load_file(ApiDocs.config.docs_path.join('application.yml'))
+    assert_equal 2, output['show'].keys.size
+    object = output['show'][output['show'].keys.last]
+    assert_not_equal 'IGNORED', object['body']['random']
+    
+    api_call(:get, '/users/:id', :id => 12345, :random => 1) do
+      assert_response :success
+    end
+    output = YAML.load_file(ApiDocs.config.docs_path.join('application.yml'))
+    assert_equal 2, output['show'].keys.size
   end
   
 end

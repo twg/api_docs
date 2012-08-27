@@ -1,6 +1,6 @@
 ---
 show:
-  xcDMLT43Jqzjw0DLBEQQ2yQAwxk=:
+  EcnsA/QLkhD/TM0fULEQr1gMErg=:
     description: 
     method: GET
     path: /users/:id
@@ -10,12 +10,15 @@ show:
     body:
       id: 12345
       name: Test User
-  p/1xsSd3tfFFU57gMtTHQ1feeXI=:
-    description: Invalid user id
+  eFC9vGmkj/bEadSqwD/6teN2/U4=:
+    description: 
     method: GET
     path: /users/:id
     params:
-      id: invalid
-    status: 404
+      id: '12345'
+      random: '1'
+    status: 200
     body:
-      message: User not found
+      id: 12345
+      name: Test User
+      random: 0.6304081587918597

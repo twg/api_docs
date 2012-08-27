@@ -2,10 +2,16 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   def show
-    if (id = params[:id].to_i) > 0
-      render :text => {:id => id, :name => 'Test User'}.to_json
+    status = :ok
+    
+    if (id = params.delete(:id)).to_i > 0
+      response = {:id => id.to_i, :name => 'Test User'}
     else
-      render :text => {:message => 'User not found'}.to_json, :status => :not_found
+      response = {:message => 'User not found'}
+      status = :not_found
     end
+    
+    response.merge!(:random => rand) if params[:random]
+    render :text => response.to_json, :status => status
   end
 end
