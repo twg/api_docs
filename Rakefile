@@ -10,10 +10,10 @@ begin
     gem.name        = 'api_docs'
     gem.homepage    = 'http://github.com/twg/api_docs'
     gem.license     = 'MIT'
-    gem.summary     = 'A tool to help you generate documentation for you API'
-    gem.description = ''
+    gem.summary     = 'Generate API documentation using integration tests in Ruby on Rails 3'
+    gem.description = 'Generate API documentation using integration tests in Ruby on Rails 3'
     gem.email       = 'jack@twg.ca'
-    gem.authors     = ['Jack Neto', 'The Working Group Inc.']
+    gem.authors     = ['Oleg Khabarov', 'Jack Neto', 'The Working Group Inc.']
   end
   Jeweler::RubygemsDotOrgTasks.new
 rescue LoadError
