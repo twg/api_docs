@@ -1,4 +1,4 @@
-# api_docs
+# API Docs [![Build Status](https://secure.travis-ci.org/twg/api_docs.png)](http://travis-ci.org/twg/api_docs)
 A tool to help you generate documentation for your API using integration tests in Rails 3.
 
 
