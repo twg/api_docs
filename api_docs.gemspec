@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "api_docs"
-  s.version = "1.0.1"
+  s.version = "1.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Khabarov", "Jack Neto", "The Working Group Inc."]
-  s.date = "2012-09-14"
+  s.date = "2012-09-24"
   s.description = "Generate API documentation using integration tests in Ruby on Rails 3"
   s.email = "jack@twg.ca"
   s.extra_rdoc_files = [
@@ -30,10 +30,12 @@ Gem::Specification.new do |s|
     "app/views/api_docs/docs/_request_params.html.erb",
     "app/views/api_docs/docs/index.html.erb",
     "config/routes.rb",
+    "doc/screenshot.png",
     "lib/api_docs.rb",
     "lib/api_docs/configuration.rb",
     "lib/api_docs/engine.rb",
     "lib/api_docs/test_helper.rb",
+    "lib/tasks/api_docs.rake",
     "script/rails",
     "test/api_docs_test.rb",
     "test/docs_controller_test.rb",
