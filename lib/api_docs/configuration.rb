@@ -9,11 +9,15 @@ class ApiDocs::Configuration
   # Array of ignored attributes. Attributes that don't really change
   # the content like timestamps.
   attr_accessor :ignored_attributes
+  
+  # Remove doc files before running tests. False by default.
+  attr_accessor :reload_docs_folder
     
   # Configuration defaults
   def initialize
     @docs_path          = Rails.root.join('doc/api')
     @base_controller    = 'ApplicationController'
     @ignored_attributes = %w(created_at updated_at)
+    @reload_docs_folder = false
   end
 end

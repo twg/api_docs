@@ -90,8 +90,14 @@ ApiDocs.configure do |config|
   # controller that ApiDocs controller inherits from.
   # Useful for hiding it behind admin controller.
   config.base_controller = 'ApplicationController'
+  
+  # Remove doc files before running tests. False by default.
+  config.reload_docs_folder = false
 end
 ```
+
+
+![Sofa's Page Edit View](https://github.com/twg/api_docs/raw/master/doc/screenshot.png)
 
 ---
 

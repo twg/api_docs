@@ -11,5 +11,6 @@ class ApiDocsTest < ActiveSupport::TestCase
     assert config.docs_path
     assert_equal 'ApplicationController', config.base_controller
     assert_equal %w(created_at updated_at), config.ignored_attributes
+    assert_equal false, config.reload_docs_folder
   end
 end
