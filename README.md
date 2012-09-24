@@ -97,7 +97,7 @@ end
 ```
 
 
-![Sofa's Page Edit View](https://github.com/twg/api_docs/raw/master/doc/screenshot.png)
+![Api Docs Example](https://github.com/twg/api_docs/raw/master/doc/screenshot.png)
 
 ---
 
