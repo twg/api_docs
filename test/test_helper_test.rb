@@ -63,6 +63,8 @@ class TestHelperTest < ActionDispatch::IntegrationTest
     assert output['show'].present?
     assert_equal 2, output['show'].keys.size
     
+    assert_equal 'ID-', output['show'].keys.first[0..2]
+    
     object = output['show'][output['show'].keys.first]
     assert_equal 'GET',                                     object['method']
     assert_equal '/users/:id',                              object['path']

@@ -55,7 +55,7 @@ Assuming that tests pass their details are doing to be recorded into `docs/api/u
 
 ``` yml
 show:
-  1YGvw8qQDy0Te4oEAxFdTEiS3eQ=:
+  ID-f385895c2c5265b8a84d19b9885eebe0:
     method: GET
     path: /users/:id
     params:
@@ -64,7 +64,7 @@ show:
     body:
       id: 12345
       name: John Doe
-  YaEdGJRDZy0nsljmpJmOtcLxdUg=:
+  ID-3691338c8b1f567ec48e0e2ebdba2e0d:
     description: When bad user id is passed
     method: GET
     path: /users/:id

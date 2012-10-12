@@ -30,7 +30,7 @@ module ApiDocs::TestHelper
     body      = JSON.parse(response.body)
     
     # Marking response as an unique
-    key = Digest::MD5.hexdigest("
+    key = 'ID-' + Digest::MD5.hexdigest("
       #{method}#{path}#{params}#{response.status}#{api_deep_clean_params(body, :as_response)}
     ")
     
