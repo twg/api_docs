@@ -6,7 +6,7 @@ module ApiDocs::TestHelper
   #     doc.description = 'Something for the docs'
   #     ... regular test code
   #   end
-  def api_call(method, path, params = { }, &block)
+  def api_call(method, path, params = { })
     parsed_params = params.dup
     parsed_path   = path.dup
     
@@ -18,7 +18,8 @@ module ApiDocs::TestHelper
     #   get '/users/12345'
     doc = OpenStruct.new
     send(method, parsed_path, parsed_params)
-    yield doc
+
+    yield doc if block_given?
     
     # Assertions inside test block didn't fail. Preparing file
     # content to be written
