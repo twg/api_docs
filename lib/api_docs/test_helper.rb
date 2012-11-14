@@ -28,7 +28,8 @@ module ApiDocs::TestHelper
     
     file_path = File.expand_path("#{c.gsub('/', ':')}.yml", ApiDocs.config.docs_path)
     params    = api_deep_clean_params(params)
-    body      = JSON.parse(response.body)
+
+    body      = JSON.parse(response.body) rescue {}
     
     # Marking response as an unique
     key = 'ID-' + Digest::MD5.hexdigest("
