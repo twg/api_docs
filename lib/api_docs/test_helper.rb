@@ -13,6 +13,9 @@ module ApiDocs::TestHelper
     parsed_params.each do |k, v|
       parsed_params.delete(k) if parsed_path.gsub!(":#{k}", v.to_s)
     end
+
+    # Set JSON as the default format.
+    format = parsed_params[:format].present? ? parsed_params[:format] : 'json'
     
     # Making actual test request. Based on the example above:
     #   get '/users/12345'
@@ -29,7 +32,11 @@ module ApiDocs::TestHelper
     file_path = File.expand_path("#{c.gsub('/', ':')}.yml", ApiDocs.config.docs_path)
     params    = api_deep_clean_params(params)
 
-    body      = JSON.parse(response.body) rescue {}
+    if format == 'json'
+      body      = JSON.parse(response.body) rescue {}
+    elsif format == 'xml'
+      body      = response.body rescue ""
+    end
     
     # Marking response as an unique
     key = 'ID-' + Digest::MD5.hexdigest("
