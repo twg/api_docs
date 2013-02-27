@@ -30,7 +30,7 @@ Documentation is automatically generated into yaml files from tests you create t
 class UsersTest < ActionDispatch::IntegrationTest
   def test_get_user
     user = users(:default)
-    api_call(:get, '/users/:id', :id => user.to_param) do |doc|
+    api_call(:get, '/users/:id', :id => user.to_param, :format => 'json') do |doc|
       assert_response :success
       assert_equal ({
         'id'    => user.id,
@@ -40,7 +40,7 @@ class UsersTest < ActionDispatch::IntegrationTest
   end
 
   def test_get_user_failure
-    api_call(:get, '/users/:id', :id => 'invalid') do |doc|
+    api_call(:get, '/users/:id', :id => 'invalid', :format => 'json') do |doc|
       doc.description = 'When bad user id is passed'
       assert_response :not_found
       assert_equal ({
@@ -60,6 +60,7 @@ show:
     path: /users/:id
     params:
       id: 12345
+      format: json
     status: 200
     body:
       id: 12345
@@ -70,6 +71,7 @@ show:
     path: /users/:id
     params:
       id: invalid
+      format: json
     status: 404
     body:
       message: User not found
