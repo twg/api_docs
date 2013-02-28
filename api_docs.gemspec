@@ -26,7 +26,6 @@ Gem::Specification.new do |s|
     "app/assets/javascripts/api_docs.js",
     "app/assets/stylesheets/api_docs.css",
     "app/controllers/api_docs/docs_controller.rb",
-    "app/helpers/api_docs/docs_helper.rb",
     "app/views/api_docs/docs/_action.html.erb",
     "app/views/api_docs/docs/_request_params.html.erb",
     "app/views/api_docs/docs/index.html.erb",
