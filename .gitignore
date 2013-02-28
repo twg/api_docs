@@ -1,6 +1,8 @@
 .bundle
 .DS_Store
 .rvmrc
+.rbenv-gemsets
+.rbenv-version
 pkg
 Gemfile.lock
 /test/dummy/log/
