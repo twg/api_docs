@@ -35,7 +35,9 @@
   
   <tr>
     <th>Body</th>
-    <td><pre><%= (action['params']['format'].present? && action['params']['format'] == 'json') || action['params']['format'].blank? ? JSON.pretty_generate(action['body']) : action['body'] %></pre></td>
+    <td>
+      <pre><%= JSON.pretty_generate(JSON.parse(action['body'])) rescue action['body']%></pre>
+    </td>
   </tr>
   
 </table>

@@ -6,7 +6,3 @@ gem 'jquery-rails'
 group :development do
   gem 'jeweler'
 end
-
-group :test do
-  gem 'turn'
-end

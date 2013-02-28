@@ -13,9 +13,6 @@ module ApiDocs::TestHelper
     parsed_params.each do |k, v|
       parsed_params.delete(k) if parsed_path.gsub!(":#{k}", v.to_s)
     end
-
-    # Set JSON as the default format.
-    format = parsed_params[:format].present? ? parsed_params[:format] : 'json'
     
     # Making actual test request. Based on the example above:
     #   get '/users/12345'
@@ -31,16 +28,10 @@ module ApiDocs::TestHelper
     
     file_path = File.expand_path("#{c.gsub('/', ':')}.yml", ApiDocs.config.docs_path)
     params    = api_deep_clean_params(params)
-
-    if format == 'json'
-      body      = JSON.parse(response.body) rescue {}
-    elsif format == 'xml'
-      body      = response.body rescue ""
-    end
     
     # Marking response as an unique
     key = 'ID-' + Digest::MD5.hexdigest("
-      #{method}#{path}#{params}#{response.status}#{api_deep_clean_params(body, :as_response)}
+      #{method}#{path}#{doc.description}#{params}#{response.status}}
     ")
     
     data = if File.exists?(file_path)
@@ -56,7 +47,7 @@ module ApiDocs::TestHelper
       'path'        => path,
       'params'      => api_deep_clean_params(params),
       'status'      => response.status,
-      'body'        => body
+      'body'        => response.body
     }
     FileUtils.mkdir_p(File.dirname(file_path))
     File.open(file_path, 'w'){|f| f.write(data.to_yaml)}
@@ -64,18 +55,14 @@ module ApiDocs::TestHelper
   
   # Cleans up params. Removes things like File object handlers
   # Sets up ignored values so we don't generate new keys for same data
-  def api_deep_clean_params(params, as_response = false)
+  def api_deep_clean_params(params)
     case params
     when Hash
       params.each_with_object({}) do |(key, value), res|
-        if as_response && ApiDocs.config.ignored_attributes.include?(key.to_s)
-          res[key.to_s] = 'IGNORED'
-        else
-          res[key.to_s] = api_deep_clean_params(value, as_response)
-        end
+        res[key.to_s] = api_deep_clean_params(value)
       end
     when Array
-      params.collect{|value| api_deep_clean_params(value, as_response)}
+      params.collect{|value| api_deep_clean_params(value)}
     else
       case params 
       when Rack::Test::UploadedFile

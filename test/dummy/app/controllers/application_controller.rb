@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
           :id         => 1,
           :name       => 'Test User',
           :created_at => 1.day.ago
-        }].to_xml(root: "users")
+        }].to_xml(:root => 'users')
       }
     end
   end
@@ -31,10 +31,14 @@ class ApplicationController < ActionController::Base
     end
     
     response.merge!(:created_at => rand.days.ago) if params[:random]
-
+    
     respond_to do |format|
-      format.json { render :text => response.to_json, :status => status }
-      format.xml { render :text => response.to_xml(:root => "user"), :status => status }
+      format.json do
+        render :text => response.to_json, :status => status
+      end
+      format.xml do
+        render :text => response.to_xml(:root => 'user'), :status => status
+      end
     end
   end
 end

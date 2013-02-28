@@ -28,15 +28,6 @@ class TestHelperTest < ActionDispatch::IntegrationTest
       api_deep_clean_params({:a => Rack::Test::UploadedFile.new(__FILE__)})
   end
   
-  def test_api_deep_clean_params_with_ignored_params
-    ApiDocs.config.ignored_attributes = ['c']
-    assert_equal ({'c' => 'IGNORED'}),
-      api_deep_clean_params({:c => 'c'}, :as_response)
-    
-    assert_equal ({'a' => [{'b' => 'c', 'c' => 'IGNORED'}]}),
-      api_deep_clean_params({:a => [:b => 'c', :c => 'd']}, :as_response)
-  end
-  
   def test_api_call
     api_call(:get, '/users/:id', :id => 12345, :format => 'json') do |doc|
       assert_response :success
@@ -70,14 +61,14 @@ class TestHelperTest < ActionDispatch::IntegrationTest
     assert_equal '/users/:id',                              object['path']
     assert_equal ({'id' => '12345', 'format' => 'json'}),   object['params']
     assert_equal 200,                                       object['status']
-    assert_equal ({'id' => 12345, 'name' => 'Test User'}),  object['body']
+    assert_equal ({'id' => 12345, 'name' => 'Test User'}),  JSON.parse(object['body'])
     
     object = output['show'][output['show'].keys.last]
     assert_equal 'GET',                                     object['method']
     assert_equal '/users/:id',                              object['path']
     assert_equal ({'id' => 'invalid', 'format' => 'json'}), object['params']
     assert_equal 404,                                       object['status']
-    assert_equal ({'message' => 'User not found'}),         object['body']
+    assert_equal ({'message' => 'User not found'}),         JSON.parse(object['body'])
   end
   
   def test_api_call_with_ignored_attribute
@@ -104,7 +95,7 @@ class TestHelperTest < ActionDispatch::IntegrationTest
   end
 
   def test_api_call_with_xml
-    api_call(:get, '/users/:id', id: 12345, format: 'xml') do
+    api_call(:get, '/users/:id', :id => 12345, :format => 'xml') do
       assert_response :success
       xml_response = <<-eoxml
 <?xml version="1.0" encoding="UTF-8"?>
