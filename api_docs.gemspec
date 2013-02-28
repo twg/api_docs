@@ -39,7 +39,6 @@ Gem::Specification.new do |s|
     "script/rails",
     "test/api_docs_test.rb",
     "test/docs_controller_test.rb",
-    "test/docs_helper_test.rb",
     "test/dummy/README.rdoc",
     "test/dummy/Rakefile",
     "test/dummy/app/assets/images/glyphicons-halflings-white.png",

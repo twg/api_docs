@@ -7,7 +7,6 @@ end
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.version     = '1.0.5'
     gem.name        = 'api_docs'
     gem.homepage    = 'http://github.com/twg/api_docs'
     gem.license     = 'MIT'
