@@ -2,11 +2,22 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   def index
-    render :text => [{
-      :id         => 1,
-      :name       => 'Test User',
-      :created_at => 1.day.ago
-    }].to_json
+    respond_to do |format|
+      format.json {
+        render :text => [{
+          :id         => 1,
+          :name       => 'Test User',
+          :created_at => 1.day.ago
+        }].to_json
+      }
+      format.xml {
+        render :text => [{
+          :id         => 1,
+          :name       => 'Test User',
+          :created_at => 1.day.ago
+        }].to_xml(root: "users")
+      }
+    end
   end
   
   def show
@@ -20,6 +31,10 @@ class ApplicationController < ActionController::Base
     end
     
     response.merge!(:created_at => rand.days.ago) if params[:random]
-    render :text => response.to_json, :status => status
+
+    respond_to do |format|
+      format.json { render :text => response.to_json, :status => status }
+      format.xml { render :text => response.to_xml(:root => "user"), :status => status }
+    end
   end
 end

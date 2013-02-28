@@ -38,7 +38,7 @@ class TestHelperTest < ActionDispatch::IntegrationTest
   end
   
   def test_api_call
-    api_call(:get, '/users/:id', :id => 12345) do |doc|
+    api_call(:get, '/users/:id', :id => 12345, :format => 'json') do |doc|
       assert_response :success
       assert_equal ({
         'id'    => 12345,
@@ -46,7 +46,7 @@ class TestHelperTest < ActionDispatch::IntegrationTest
       }), JSON.parse(response.body)
     end
     
-    api_call(:get, '/users/:id', :id => 'invalid') do |doc|
+    api_call(:get, '/users/:id', :id => 'invalid', :format => 'json') do |doc|
       doc.description = 'Invalid user id'
       assert_response :not_found
       assert_equal ({
@@ -68,27 +68,27 @@ class TestHelperTest < ActionDispatch::IntegrationTest
     object = output['show'][output['show'].keys.first]
     assert_equal 'GET',                                     object['method']
     assert_equal '/users/:id',                              object['path']
-    assert_equal ({'id' => '12345'}),                       object['params']
+    assert_equal ({'id' => '12345', 'format' => 'json'}),   object['params']
     assert_equal 200,                                       object['status']
     assert_equal ({'id' => 12345, 'name' => 'Test User'}),  object['body']
     
     object = output['show'][output['show'].keys.last]
-    assert_equal 'GET',                             object['method']
-    assert_equal '/users/:id',                      object['path']
-    assert_equal ({'id' => 'invalid'}),             object['params']
-    assert_equal 404,                               object['status']
-    assert_equal ({'message' => 'User not found'}), object['body']
+    assert_equal 'GET',                                     object['method']
+    assert_equal '/users/:id',                              object['path']
+    assert_equal ({'id' => 'invalid', 'format' => 'json'}), object['params']
+    assert_equal 404,                                       object['status']
+    assert_equal ({'message' => 'User not found'}),         object['body']
   end
   
   def test_api_call_with_ignored_attribute
-    api_call(:get, '/users/:id', :id => 12345) do
+    api_call(:get, '/users/:id', :id => 12345, :format => 'json') do
       assert_response :success
     end
     output = YAML.load_file(ApiDocs.config.docs_path.join('application.yml'))
     assert_equal 1, output['show'].keys.size
     
     ApiDocs.config.ignored_attributes << 'random'
-    api_call(:get, '/users/:id', :id => 12345, :random => 1) do
+    api_call(:get, '/users/:id', :id => 12345, :random => 1, :format => 'json') do
       assert_response :success
     end
     output = YAML.load_file(ApiDocs.config.docs_path.join('application.yml'))
@@ -96,11 +96,27 @@ class TestHelperTest < ActionDispatch::IntegrationTest
     object = output['show'][output['show'].keys.last]
     assert_not_equal 'IGNORED', object['body']['random']
     
-    api_call(:get, '/users/:id', :id => 12345, :random => 1) do
+    api_call(:get, '/users/:id', :id => 12345, :random => 1, :format => 'json') do
       assert_response :success
     end
     output = YAML.load_file(ApiDocs.config.docs_path.join('application.yml'))
     assert_equal 2, output['show'].keys.size
+  end
+
+  def test_api_call_with_xml
+    api_call(:get, '/users/:id', id: 12345, format: 'xml') do
+      assert_response :success
+      xml_response = <<-eoxml
+<?xml version="1.0" encoding="UTF-8"?>
+<user>
+  <id type="integer">12345</id>
+  <name>Test User</name>
+</user>
+eoxml
+      assert_equal xml_response, response.body
+    end
+    output = YAML.load_file(ApiDocs.config.docs_path.join('application.yml'))
+    assert_equal 1, output['show'].keys.size
   end
   
 end
