@@ -11,21 +11,21 @@ class TestHelperTest < ActionDispatch::IntegrationTest
   
   def test_api_deep_clean_params
     assert_equal ({'a' => 'b'}),
-      api_deep_clean_params({:a => 'b'})
+      ApiDocs::TestHelper.api_deep_clean_params({:a => 'b'})
     
     assert_equal ({'a' => {'b' => 'c'}}),
-      api_deep_clean_params({:a => {:b => 'c'}})
+      ApiDocs::TestHelper.api_deep_clean_params({:a => {:b => 'c'}})
     
     assert_equal ([{'a' => 'b'}, {'c' => 'd'}]),
-      api_deep_clean_params([{:a => 'b'}, {:c => 'd'}])
+      ApiDocs::TestHelper.api_deep_clean_params([{:a => 'b'}, {:c => 'd'}])
       
     assert_equal ({'a'=>[{'b'=>'c'}]}),
-      api_deep_clean_params({:a => [{:b => 'c'}]})
+      ApiDocs::TestHelper.api_deep_clean_params({:a => [{:b => 'c'}]})
   end
   
   def test_api_deep_clean_params_with_file_handler
     assert_equal ({'a' => 'BINARY'}),
-      api_deep_clean_params({:a => Rack::Test::UploadedFile.new(__FILE__)})
+      ApiDocs::TestHelper.api_deep_clean_params({:a => Rack::Test::UploadedFile.new(__FILE__)})
   end
   
   def test_api_call
@@ -108,6 +108,20 @@ eoxml
     end
     output = YAML.load_file(ApiDocs.config.docs_path.join('application.yml'))
     assert_equal 1, output['show'].keys.size
+  end
+  
+  def test_api_call_with_httpauth
+    auth = ActionController::HttpAuthentication::Basic.encode_credentials('user', 'secret')
+    api_call(:get, '/authenticate', :random => 1, :format => 'json', 'HTTP_AUTHORIZATION' => auth) do
+      assert_response :success
+      assert_equal ({'message' => 'Authenticated'}), JSON.parse(response.body)
+    end
+  end
+  
+  def test_api_call_with_httpauth_failure
+    api_call(:get, '/authenticate', :random => 1, :format => 'json') do
+      assert_response :unauthorized
+    end
   end
   
 end

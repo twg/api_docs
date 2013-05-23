@@ -1,24 +1,6 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
   
-  def index
-    respond_to do |format|
-      format.json {
-        render :text => [{
-          :id         => 1,
-          :name       => 'Test User',
-          :created_at => 1.day.ago
-        }].to_json
-      }
-      format.xml {
-        render :text => [{
-          :id         => 1,
-          :name       => 'Test User',
-          :created_at => 1.day.ago
-        }].to_xml(:root => 'users')
-      }
-    end
-  end
+  http_basic_authenticate_with :name => 'user', :password => 'secret', :only => :authenticate
   
   def show
     status = :ok
@@ -40,5 +22,9 @@ class ApplicationController < ActionController::Base
         render :text => response.to_xml(:root => 'user'), :status => status
       end
     end
+  end
+  
+  def authenticate
+    render :text => {:message => 'Authenticated'}.to_json
   end
 end
