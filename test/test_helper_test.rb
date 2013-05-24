@@ -112,7 +112,7 @@ eoxml
   
   def test_api_call_with_httpauth
     auth = ActionController::HttpAuthentication::Basic.encode_credentials('user', 'secret')
-    api_call(:get, '/authenticate', :random => 1, :format => 'json', 'HTTP_AUTHORIZATION' => auth) do
+    api_call(:get, '/authenticate', {:random => 1, :format => 'json'}, 'HTTP_AUTHORIZATION' => auth) do
       assert_response :success
       assert_equal ({'message' => 'Authenticated'}), JSON.parse(response.body)
     end

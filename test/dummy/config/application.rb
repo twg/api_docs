@@ -10,6 +10,7 @@ require "rails/test_unit/railtie"
 
 Bundler.require
 require "api_docs"
+require "haml-rails"
 
 module Dummy
   class Application < Rails::Application
