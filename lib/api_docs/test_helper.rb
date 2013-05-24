@@ -7,22 +7,19 @@ module ApiDocs::TestHelper
     #     doc.description = 'Something for the docs'
     #     ... regular test code
     #   end
-    def api_call(method, path, params = { })
-      parsed_params = params.dup
+    def api_call(method, path, params = {}, headers = {})
       parsed_path   = path.dup
+      parsed_params = params.dup
+
     
       parsed_params.each do |k, v|
         parsed_params.delete(k) if parsed_path.gsub!(":#{k}", v.to_s)
       end
       
-      if credentials = parsed_params.delete('HTTP_AUTHORIZATION')
-        auth = {'HTTP_AUTHORIZATION' => credentials}
-      end
-    
       # Making actual test request. Based on the example above:
       #   get '/users/12345'
       doc = OpenStruct.new
-      send(method, parsed_path, parsed_params, auth)
+      send(method, parsed_path, parsed_params, headers)
 
       yield doc if block_given?
     
@@ -50,6 +47,7 @@ module ApiDocs::TestHelper
         'description' => doc.description,
         'method'      => request.method,
         'path'        => path,
+        'headers'     => headers,
         'params'      => ApiDocs::TestHelper.api_deep_clean_params(params),
         'status'      => response.status,
         'body'        => response.body

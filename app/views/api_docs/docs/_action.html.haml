@@ -1,0 +1,36 @@
+%table.table.table-bordered.table-condensed#api-doc-table
+  
+  %tr.info
+    %th Request
+    %td
+      %span.label.label-info= action['method']
+      %code= action['path']
+      
+  - if action['description'].present?
+    %tr
+      %th Description
+      %td= action['description']
+      
+  - if action['headers'].present? && action['headers'].is_a?(Hash)
+    %tr
+      %th Headers
+      %td= render :partial => 'request_params', :object => action['headers']
+  
+  - if action['params'].present? && action['params'].is_a?(Hash)
+    %tr
+      %th Parameters
+      %td= render :partial => 'request_params', :object => action['params']
+  
+  %tr.info
+    %th Response
+    %td
+      %span.label{:class => (action['status'].to_s[0] == '4') ? 'label-important' : 'label-success'}
+        = action['status']
+  
+  %tr
+    %th Body
+    %td
+      %pre
+        = preserve do
+          :escaped
+            #{ JSON.pretty_generate(JSON.parse(action['body'])) rescue action['body'] }

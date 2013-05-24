@@ -1,0 +1,19 @@
+.row
+  .span3
+    %ul.nav.nav-list#api-doc-nav
+      - @api_controllers.each_with_index do |(controller, actions), ci| 
+        %li.nav-header
+          = controller.gsub(/\W/, '_').humanize.titleize
+        
+        - actions.each_with_index do |(action, data), ai| 
+          %li{:class => (ci == 0 && ai == 0) ? 'active' : ''}
+            - tab_id = "#{controller.gsub(/\W/, '_')}_#{action}"
+            = link_to action.humanize.titleize, "##{tab_id}", :data => {:toggle => 'tab'}
+  .span9
+    .tab-content
+      - @api_controllers.each_with_index do |(controller, actions), ci| 
+        - actions.each_with_index do |(action, data), ai| 
+          - tab_id = "#{controller.gsub(/\W/, '_')}_#{action}"
+          .tab-pane{:id => tab_id, :class => (ci == 0 && ai == 0) ? 'active' : ''}
+            - data.each do |key, data| 
+              = render :partial => 'action', :object => data
