@@ -38,7 +38,7 @@ class TestHelperTest < ActionDispatch::IntegrationTest
     end
     
     api_call(:get, '/users/:id', :id => 'invalid', :format => 'json') do |doc|
-      doc.description = 'Invalid user id'
+      doc[:description] = 'Invalid user id'
       assert_response :not_found
       assert_equal ({
         'message' => 'User not found'

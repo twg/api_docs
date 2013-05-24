@@ -18,10 +18,11 @@ module ApiDocs::TestHelper
       
       # Making actual test request. Based on the example above:
       #   get '/users/12345'
-      doc = OpenStruct.new
+      
       send(method, parsed_path, parsed_params, headers)
-
-      yield doc if block_given?
+      
+      meta = Hash.new
+      yield meta if block_given?
     
       # Assertions inside test block didn't fail. Preparing file
       # content to be written
@@ -33,7 +34,7 @@ module ApiDocs::TestHelper
     
       # Marking response as an unique
       key = 'ID-' + Digest::MD5.hexdigest("
-        #{method}#{path}#{doc.description}#{params}#{response.status}}
+        #{method}#{path}#{meta}#{params}#{response.status}}
       ")
     
       data = if File.exists?(file_path)
@@ -44,7 +45,7 @@ module ApiDocs::TestHelper
     
       data[a] ||= { }
       data[a][key] = {
-        'description' => doc.description,
+        'meta'        => meta,
         'method'      => request.method,
         'path'        => path,
         'headers'     => headers,

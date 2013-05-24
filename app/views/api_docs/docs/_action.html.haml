@@ -1,15 +1,16 @@
 %table.table.table-bordered.table-condensed#api-doc-table
   
+  - if action['meta'].present? && action['meta'].is_a?(Hash)
+    - action['meta'].each do |k, v|
+      %tr
+        %th= k.to_s.titleize
+        %td= v
+        
   %tr.info
     %th Request
     %td
       %span.label.label-info= action['method']
       %code= action['path']
-      
-  - if action['description'].present?
-    %tr
-      %th Description
-      %td= action['description']
       
   - if action['headers'].present? && action['headers'].is_a?(Hash)
     %tr

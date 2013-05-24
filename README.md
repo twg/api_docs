@@ -1,6 +1,5 @@
 # API Docs [![Build Status](https://secure.travis-ci.org/twg/api_docs.png)](http://travis-ci.org/twg/api_docs)
-A tool to help you generate documentation for your API using integration tests in Rails 3.
-
+A tool to help you generate documentation for your API using integration tests in Rails.
 
 ## Installation
 Add gem definition to your Gemfile and `bundle install`:
@@ -41,7 +40,7 @@ class UsersTest < ActionDispatch::IntegrationTest
 
   def test_get_user_failure
     api_call(:get, '/users/:id', :id => 'invalid', :format => 'json') do |doc|
-      doc.description = 'When bad user id is passed'
+      doc[:description] = 'When bad user id is passed'
       assert_response :not_found
       assert_equal ({
         'message' => 'User not found'
@@ -66,7 +65,8 @@ show:
       id: 12345
       name: John Doe
   ID-3691338c8b1f567ec48e0e2ebdba2e0d:
-    description: When bad user id is passed
+    meta:
+      description: When bad user id is passed
     method: GET
     path: /users/:id
     params:
@@ -97,7 +97,6 @@ ApiDocs.configure do |config|
   config.reload_docs_folder = false
 end
 ```
-
 
 ![Api Docs Example](https://github.com/twg/api_docs/raw/master/doc/screenshot.png)
 
