@@ -12,6 +12,10 @@ class ApiDocs::Configuration
   
   # Remove doc files before running tests. False by default.
   attr_accessor :reload_docs_folder
+  
+  # Generates docs on demand only. False by default
+  # When enabled docs will generate only if `ENV['API_DOCS']` is set
+  attr_accessor :generate_on_demand
     
   # Configuration defaults
   def initialize
@@ -19,5 +23,6 @@ class ApiDocs::Configuration
     @base_controller    = 'ApplicationController'
     @ignored_attributes = %w(created_at updated_at)
     @reload_docs_folder = false
+    @generate_on_demand = false
   end
 end

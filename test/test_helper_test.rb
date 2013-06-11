@@ -4,6 +4,8 @@ class TestHelperTest < ActionDispatch::IntegrationTest
   
   def setup
     ApiDocs.config.ignored_attributes = %(created_at updated_at)
+    ApiDocs.config.generate_on_demand = false
+    ENV.delete('API_DOCS')
     Dir.glob(ApiDocs.config.docs_path.join('*.yml')).each do |file_path|
       FileUtils.rm(file_path)
     end
@@ -124,4 +126,21 @@ eoxml
     end
   end
   
+  def test_api_call_with_generate_on_demand_off
+    ApiDocs.config.generate_on_demand = true
+    api_call(:get, '/users/:id', :id => 12345, :format => 'json') do
+      assert_response :success
+    end
+    assert !File.exists?(ApiDocs.config.docs_path.join('application.yml'))
+  end
+  
+  def test_api_call_with_generate_on_demand_on
+    ENV['API_DOCS'] = 'true'
+    ApiDocs.config.generate_on_demand = true
+    
+    api_call(:get, '/users/:id', :id => 12345, :format => 'json') do
+      assert_response :success
+    end
+    assert File.exists?(ApiDocs.config.docs_path.join('application.yml'))
+  end
 end

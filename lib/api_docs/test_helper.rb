@@ -23,6 +23,11 @@ module ApiDocs::TestHelper
       
       meta = Hash.new
       yield meta if block_given?
+      
+      # Not writing anything to the files unless there was a demand
+      if ApiDocs.config.generate_on_demand
+        return unless ENV['API_DOCS']
+      end
     
       # Assertions inside test block didn't fail. Preparing file
       # content to be written

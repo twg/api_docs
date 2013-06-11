@@ -95,6 +95,11 @@ ApiDocs.configure do |config|
   
   # Remove doc files before running tests. False by default.
   config.reload_docs_folder = false
+  
+  # Generates docs on demand only. False by default.
+  # When enabled docs will generate only if `ENV['API_DOCS']` is set
+  attr_accessor :generate_on_demand
+  
 end
 ```
 
